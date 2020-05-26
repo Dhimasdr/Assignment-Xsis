@@ -1,0 +1,97 @@
+﻿@model IEnumerable<ViewModel.Rent_lists>
+
+
+@*<div class="input-group mb-3">
+    <input type="text" class="form-control" placeholder="Search">
+    <div class="input-group-append">
+        <button class="btn btn-success" type="submit">Go</button>
+    </div>
+</div>*@
+
+<div class="input-group mb-3">
+    <input type="text" id="search" class="form-control" placeholder="Input your Id" aria-label="Input your Id" aria-describedby="button-addon2">
+    <div class="input-group-append">
+        <button class="btn btn-outline-secondary" onclick="search()" type="button" id="button-addon2">Search</button>
+    </div>
+</div>
+<br/>
+<table class="table">
+    <tr>
+        <th>
+            @*@Html.DisplayNameFor(model => model.id_User)*@
+            User Id
+        </th>
+        <th>
+            @*@Html.DisplayNameFor(model => model.id_Kendaraan)*@
+            Kendaraan
+        </th>
+        @*<th>
+            @Html.DisplayNameFor(model => model.Status)
+        </th>*@
+        <th>
+            @*@Html.DisplayNameFor(model => model.Nomor_Pesanan)*@
+            Nomor Pesanan
+        </th>
+        <th>
+            @*@Html.DisplayNameFor(model => model.Start_Date)*@
+            Start Date
+        </th>
+        <th>
+            @*@Html.DisplayNameFor(model => model.End_Date)*@
+            End Date
+        </th>
+        <th>
+            Action
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.id_User)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.id_Kendaraan)
+        </td>
+        @*<td>
+            @Html.DisplayFor(modelItem => item.Status)
+        </td>*@
+        <td>
+            @Html.DisplayFor(modelItem => item.Nomor_Pesanan)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Start_Date)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.End_Date)
+        </td>
+        <td>
+            @Html.ActionLink("View", "RentHistory", new { id=item.Id }) |
+            
+        </td>
+    </tr>
+}
+
+</table>
+<script type="text/javascript">
+    function search() {
+        var str = $("#search").val();
+        alert(str)
+        $.ajax({
+            url: '@Url.Action("Search", "RentHistory")',
+            type: 'get',
+            data: $("#search").val(),
+            success: function (result) {
+                alert("halo");
+                console.log(result);
+                if (result.count < 1) {
+                    alert("User ID Not Found");
+                }
+                $("#data-list").html(result.list);
+                
+            }
+        })
+    }
+
+
+</script>

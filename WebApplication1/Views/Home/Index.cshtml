@@ -1,0 +1,177 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Lapsus - Website Landing Page</title>
+    <!-- Description, Keywords and Author -->
+    <meta name="description" content="Your description">
+    <meta name="keywords" content="Your,Keywords">
+    <meta name="author" content="ResponsiveWebInc">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+
+    <!-- Styles -->
+    <!-- Bootstrap CSS -->
+    @Styles.Render("~/Content/newcss")
+    <!-- Font awesome CSS -->
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="#">
+</head>
+
+<body>
+
+    <!-- wrapper -->
+    <div class="wrapper">
+        <!-- banner -->
+        <div class="banner">
+            <div class="container">
+                <!-- banner content -->
+                <div class="banner-content">
+                    <!-- logo image -->
+                    <a href="#"><img class="img-responsive" src="img/logo.png" alt="" /></a>
+                    <!-- short paragraph -->
+                    <p>Welcome to D-Rent<br>Trusted Rental Agency  </p>
+
+                </div>
+            </div>
+        </div>
+
+        <!-- feature block -->
+        <div class="feature">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-3 col-sm-3">
+                        <!-- feature item -->
+                        <div class="feature-item">
+                            <!-- icon -->
+                            <i class="fa fa-paper-plane" onclick="add()"></i>
+                            <!-- heading -->
+                            <h4>Sewa Mobil</h4>
+                            <!-- paragraph -->
+                            <p>Mulai sewa kendaraan anda di sini. Sistem penyewaan online mempermudah perjalanan anda</p>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-3">
+                        <!-- feature item -->
+                        <div class="feature-item">
+                            <!-- icon -->
+                            <a href="@Url.Action("Index", "RentHistory")">
+                                <i class="fa fa-history"></i>
+                            </a>
+                            <!-- heading -->
+                            <h4>Rent History</h4>
+                            <!-- paragraph -->
+                            <p>Lihat history penyewaan anda</p>
+                        </div>
+                    </div>
+                    @*<div class="col-md-3 col-sm-3">
+                        <!-- feature item -->
+                        <div class="feature-item">
+                            <!-- icon -->
+                            <i class="fa fa-car"></i>
+                            <!-- heading -->
+                            <h4>Our Cars</h4>
+                            <!-- paragraph -->
+                            <p>Cari tau kendaraan apa yang anda ingink  an untuk memfasilitasi perjalanan anda.</p>
+                        </div>
+                    </div>*@
+                    <div class="col-md-3 col-sm-3">
+                        <!-- feature item -->
+                        <div class="feature-item">
+                            <!-- icon -->
+                            <a href="@Url.Action("Index", "NewUser")">
+                                <i class="fa fa-user"></i>
+                            </a>
+                            <!-- heading -->
+                            <h4>New User</h4>
+                            <!-- paragraph -->
+                            <p>Pertama kali mengunjungi website? Ayo buat akunmu sendiri.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- subscribe block -->
+        <div class="modal" tabindex="-1" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Modal title</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <p>Modal body text goes here.</p>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary">Save changes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- footer -->
+        @*<footer>
+                <div class="container">
+                    <!-- navigation link -->
+                    <p class="nav-link"><a href="#">Contact</a> &nbsp;|&nbsp; <a href="#">Downloads</a> &nbsp;|&nbsp; <a href="#">Email</a> &nbsp;|&nbsp; <a href="#">Support</a> &nbsp;|&nbsp; <a href="#">Privacy Policy</a></p>
+                    <!-- copy right -->
+                    <!-- This theme comes under Creative Commons Attribution 4.0 Unported. So don't remove below link back -->
+                    <p class="copy-right">Copyright &copy; 2014 <a href="#">Your Site</a> | Designed By : <a href="http://www.indioweb.in/portfolio">IndioWeb</a>, All rights reserved. </p>
+                </div>
+            </footer>*@
+
+    </div>
+
+
+    <!-- Javascript files -->
+    <!-- jQuery -->
+    @Scripts.Render("~/bundles/newbootstrap")
+
+</body>
+</html>
+@section Scripts{
+    <script type="text/javascript">
+        $("#btn-create-order").click(function () {
+            $.ajax({
+                url: '@Url.Action("AddOrder", "Home")',
+                type: 'get',
+                success: function (result) {
+                    $(".modal-title").html("Create New");
+                    $(".modal-body").html(result);
+                    $(".modal").modal("show");
+                }
+
+            })
+        })
+        function add() {
+            $.ajax({
+                url: '@Url.Action("AddOrder", "Home")',
+                type: 'get',
+                success: function (result) {
+                    $(".modal-title").html("Sewa Mobil");
+                    $(".modal-body").html(result);
+                    $(".modal").modal("show");
+                }
+
+            })
+
+        };
+
+
+
+    </script>
+
+}

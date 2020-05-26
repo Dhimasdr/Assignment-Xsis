@@ -1,0 +1,111 @@
+﻿@model ViewModel.List_User
+
+@{
+    ViewBag.Title = "View";
+}
+
+<h2>Create New Account</h2>
+
+@using (Html.BeginForm("Create","NewUser", FormMethod.Post, new { id = "form-create", name = "form-create"  }))
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        @*<h4>User_list</h4>*@
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            <div class="control-label col-md-2" style="font-weight:bold">
+                Email
+            </div>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="control-label col-md-2" style="font-weight:bold">
+                Nama
+            </div>
+            @*@Html.LabelFor(model => model.nama, htmlAttributes: new { @class = "control-label col-md-2" })*@
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Nama, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Nama, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="control-label col-md-2" style="font-weight:bold">
+                Alamat
+            </div>
+            @*@Html.LabelFor(model => model.alamat, htmlAttributes: new { @class = "control-label col-md-2" })*@
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Alamat, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Alamat, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="control-label col-md-2" style="font-weight:bold">
+                Nomor KTP
+            </div>
+            
+            @*@Html.LabelFor(model => model.nomor_ktp, htmlAttributes: new { @class = "control-label col-md-2" })*@
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.nomor_id, new { htmlAttributes = new { @class = "form-control", @type = "text" } })
+                @Html.ValidationMessageFor(model => model.nomor_id, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        
+        @*<div class="form-group">
+            @Html.LabelFor(model => model.id_gambarktp, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.id_gambarktp, new { htmlAttributes = new { @class = "form-control", @accept = ".jpg,.jpeg,.png", @type = "file", @id = "ok" } })
+                @Html.ValidationMessageFor(model => model.id_gambarktp, "", new { @class = "text-danger" })
+            </div>
+            <div>
+                <button class="btn btn-default"  onclick = "uppp()"> Upload! </button>
+            </div>
+        </div>*@
+
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    <a href="@Url.Action("Index", "Home")">Back to Homepage
+    </a>
+</div>
+
+@section Scripts{
+    <script type="text/javascript">
+        $("#form-create").submit(function myfunction() {
+            var baseURL = "@Url.Action("index", "Home")"
+            $.ajax({
+                url: this.action,
+                type: this.method,
+                data: $(this).serialize(),
+                success: function (result) {
+                    if (result.success) {
+                        alert("Account Created");
+                        window.location.href = baseURL;
+                    }
+                    else {
+                        alert("Error");
+                    }
+                }
+
+            });
+            return false;
+        })
+        
+
+    </script>
+        
+    }

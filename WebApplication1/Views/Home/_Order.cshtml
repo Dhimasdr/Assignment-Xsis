@@ -1,0 +1,159 @@
+﻿@model ViewModel.Rent_lists
+
+
+
+
+@using (Html.BeginForm("Create", "Home", FormMethod.Post, new { id = "form-create", name = "form-create" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        @*<h4>Sewa Mobil</h4>
+            <hr />*@
+
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.Id)
+        <div class="form-group">
+            <label class="col-md-2">Email</label>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.email, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.email, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-md-2" for="@Model.id_Kendaraan">Please Confirm:</label>
+            <div class="col-md-10">
+                <select name="@Model.id_Kendaraan">
+                    <option value="question" selected="selected">I have a question</option>
+                    <option value="attending">I am attending</option>
+                    <option value="not-attending">I am not attending</option>
+                </select>
+
+            </div>
+        </div>
+
+        @*@{
+                List<SelectListItem> listItems = new List<SelectListItem>();
+                listItems.Add(new SelectListItem
+                {
+                    Text = "Exemplo1",
+                    Value = "Exemplo1"
+                });
+                listItems.Add(new SelectListItem
+                {
+                    Text = "Exemplo2",
+                    Value = "Exemplo2",
+                    //Selected = true
+                });
+                listItems.Add(new SelectListItem
+                {
+                    Text = "Exemplo3",
+                    Value = "Exemplo3"
+                });
+            }
+            <div class="form-group">
+                <label class="col-md-2">Pilih Mobil</label>
+
+                <div class=" col-md-10">
+                    @Html.DropDownListFor(model => model.id_Kendaraan, listItems, "-- Select Status --", new { htmlAttributes = new { @class = "form-control", @id="drop" } })
+                </div>
+            </div>
+            <button onclick="cek()">cek</button>*@
+
+
+
+
+
+
+
+        @*<div class="form-group">
+                <label class="col-md-2">Pilih Mobil</label>
+
+                <div class="dropdown col-md-10">
+
+                        <button class="btn dropdown-toggle" id="dropbtn" type="button" data-toggle="dropdown">
+                            Select
+                            <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu" id="drop-menu">
+                            <li><a >HTML</a></li>
+                            <li><a >CSS</a></li>
+                            <li><a >JavaScript</a></li>
+                        </ul>
+                </div>
+            </div>*@
+
+
+        <div class="form-group">
+
+            <label class="col-md-2">Tanggal Pinjam</label>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Start_Date, new { htmlAttributes = new { @class = "form-control", @type = "date" } })
+                @Html.ValidationMessageFor(model => model.Start_Date, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-md-2">Tanggal Kembali</label>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.End_Date, new { htmlAttributes = new { @class = "form-control", @type = "date" } })
+                @Html.ValidationMessageFor(model => model.End_Date, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group col-md-5">
+
+            <a href="@Url.Action("Index", "NewUser")">belum punya nomor user?</a>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </div>
+        <br />
+
+    </div>
+}
+
+<script type="text/javascript">
+
+    //$('#drop-menu a').click(function (e) {
+    //    var txt = $(e.target).text();
+    //    //alert(txt);
+    //    var change = document.getElementById("dropbtn");
+    //    change.innerHTML = txt;
+    //});
+    function cek() {
+        var change = document.getElementById("drop");
+        alert(change);
+        return false;
+    }
+    $("#form-create").submit(function () {
+        var query = $(this).serialize();
+        $.ajax({
+            url: this.action,
+            type: this.method,
+            data: $(this).serialize(),
+            success: function (result) {
+                if (result.success) {
+                    alert("Account Created");
+                    window.location.href = baseURL;
+                }
+                else {
+                    alert("Error");
+                }
+            }
+
+        });
+        return false;
+    })
+    var query = $(this).serialize();
+    //function open(item) {
+    //    console.log(item)
+    //    var change = document.getElementById("dropbtn");
+    //    change.innerHTML = item.value;
+
+
+    //}
+
+</script>
